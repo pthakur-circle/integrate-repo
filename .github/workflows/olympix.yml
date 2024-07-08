@@ -2,10 +2,9 @@
 name: Olympix Security 
 on: 
   workflow_call:
-  secrets:
-    OLYMPIX_API_TOKEN:
-      required: true
-      type: string
+    secrets:
+      OLYMPIX_API_TOKEN:
+        required: true
 
 jobs:
   security:
@@ -13,6 +12,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Run Olympix Integrated Security
+        uses: olympix/integrated-security@main
+        env:
+          OLYMPIX_API_TOKEN: ${{ secrets.OLYMPIX_API_TOKEN }}
+          required: true
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: olympix.sarif
+
+
+
 
       # - name: Set up Circle runner
       #   uses: circlefin/circle-runner-setup-action@v5.1.10
@@ -28,15 +41,3 @@ jobs:
       #     secret-ids: | 
       #       API_TOKEN,dev/olympix/key
       #     parse-json-secrets: true
-
-      
-      - name: Run Olympix Integrated Security
-        uses: olympix/integrated-security@main
-        env:
-          OLYMPIX_API_TOKEN: ${{ secrets.OLYMPIX_API_TOKEN }}
-          required: true
-
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: olympix.sarif
