@@ -2,7 +2,7 @@
 name: Olympix Security 
 on: 
   workflow_call:
-  inputs:
+  secrets:
     OLYMPIX_API_TOKEN:
       required: true
       type: string
