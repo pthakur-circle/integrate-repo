@@ -5,31 +5,31 @@ on:
 
 jobs:
   security:
-    runs-on: small-spot
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Circle runner
-        uses: circlefin/circle-runner-setup-action@v5.1.10
-        with: 
-          repository: ${{ github.repository }}
-          branch: ${{ github.ref }}
-          ecr_registries: ""
-          iam_role_arn: arn:aws:iam::171747205859:role/dev-olympix-ci
+      # - name: Set up Circle runner
+      #   uses: circlefin/circle-runner-setup-action@v5.1.10
+      #   with: 
+      #     repository: ${{ github.repository }}
+      #     branch: ${{ github.ref }}
+      #     ecr_registries: ""
+      #     iam_role_arn: arn:aws:iam::171747205859:role/dev-olympix-ci
 
-      - name: Read Github Action Secrets from AWS
-        uses: aws-actions/aws-secretsmanager-get-secrets@v2.0.5
-        with:
-          secret-ids: | 
-            API_TOKEN,dev/olympix/key
-          parse-json-secrets: true
+      # - name: Read Github Action Secrets from AWS
+      #   uses: aws-actions/aws-secretsmanager-get-secrets@v2.0.5
+      #   with:
+      #     secret-ids: | 
+      #       API_TOKEN,dev/olympix/key
+      #     parse-json-secrets: true
 
       
       - name: Run Olympix Integrated Security
         uses: olympix/integrated-security@main
         env:
-          OLYMPIX_API_TOKEN: ${{ env.API_TOKEN }}
+          OLYMPIX_API_TOKEN: ${{ secrests.OLYMPIX_API_TOKEN }}
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
