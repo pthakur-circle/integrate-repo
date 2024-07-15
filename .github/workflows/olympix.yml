@@ -19,14 +19,11 @@ jobs:
           repository: pthakur-circle/integrate-repo
           path: ./integrate-repo
 
-      - name: List
-        run: ls -al ./integrate-repo
-
-      # - name: Read arguments from file
-      #   id: read_args
-      #   run: |
-      #     args=$(awk '{print "--no-" $1}' custome_olympix_rule.txt | tr '\n' ' ')
-      #     echo "args=$args" >> $GITHUB_ENV
+      - name: Read arguments from file
+        id: read_args
+        run: |
+          args=$(awk '{print "--no-" $1}' ./integrate-repocustome_olympix_rule.txt | tr '\n' ' ')
+          echo "args=$args" >> $GITHUB_ENV
 
       - name: Run Olympix Integrated Security
         uses: olympix/integrated-security@main
