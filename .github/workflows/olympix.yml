@@ -34,7 +34,8 @@ jobs:
           OLYMPIX_API_TOKEN: ${{ secrets.OLYMPIX_API_TOKEN }}
           required: true
         with: 
-          args: ${{ env.args }}
+          args: -f sarif ${{ env.args }}
+        # run: echo "sarif_file = ./olympix.sarif" >> $GITHUB_ENV
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
