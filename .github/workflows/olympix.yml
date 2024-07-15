@@ -18,6 +18,7 @@ jobs:
           repository: pthakur-circle/integrate-repo
           path: ./integrate-repo
 
+      # For text file 
       # - name: Read arguments from file
       #   id: read_args
       #   run: |
@@ -31,6 +32,7 @@ jobs:
       #     fi
       #     echo "args=${ARGS}" >> $GITHUB_ENV
 
+      # For JSON file
       - name: Read arguments from file
         id: read_args
         run: |
