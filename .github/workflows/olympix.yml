@@ -29,15 +29,19 @@ jobs:
           echo "args=$args" >> $GITHUB_ENV
 
       - name: Run Olympix Integrated Security
+        id: run_olympix
         uses: olympix/integrated-security@main
         env:
           OLYMPIX_API_TOKEN: ${{ secrets.OLYMPIX_API_TOKEN }}
           required: true
         with: 
           args: -f sarif ${{ env.args }}
-        run: echo "sarif_file = ./olympix.sarif" >> $GITHUB_ENV
+
+      - name: Set SARIF file path
+        if: ${{ steps.run_olympix.outputs.sarif_file }}
+        run : echo "SARIF_FILE=${{ steps.run_olympix.outputs.sarif_file }}" >> $GITHUB_ENV
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: olympix.sarif
+          sarif_file: ${{ env.SARIF_FILE }}
