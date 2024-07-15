@@ -20,7 +20,7 @@ jobs:
           path: ./integrate-repo
 
       - name: List
-        run: ls -alh
+        run: ls -al ./integrate-repo
 
       # - name: Read arguments from file
       #   id: read_args
