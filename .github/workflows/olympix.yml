@@ -30,8 +30,8 @@ jobs:
         env:
           OLYMPIX_API_TOKEN: ${{ secrets.OLYMPIX_API_TOKEN }}
           required: true
-        # with: 
-        #   args: ${{ env.args }}
+        with: 
+          args: ${{ env.args }}
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
