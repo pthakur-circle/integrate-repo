@@ -1,1 +1,1 @@
-pthakur-circle/integrate-repo --no-default-visibility
+pthakur-circle/solidity-repo --no-default-visibility
