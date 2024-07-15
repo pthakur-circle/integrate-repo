@@ -35,7 +35,7 @@ jobs:
         id: read_args
         run: |
           REPO_NAME="${{ github.repository }}"
-          ARGS=$(jq -r --args repo "$REPO_NAME" '.[$repo] // empty | join(" ")' ./integrate-repo/rule.json)
+          ARGS=$(jq -r --arg repo "$REPO_NAME" '.[$repo] // empty | join(" ")' ./integrate-repo/rule.json)
           if [ "$ARGS" = "null" ]; then
             echo "No args"
           else
