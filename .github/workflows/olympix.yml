@@ -26,7 +26,7 @@ jobs:
         id: read_args
         run: |
           REPO_NAME="${{ github.repository }}"
-          ARGS=$(awk -v repo="$REPO_NAME" '$1 == repo { $1 = ""; print "--no-" $0}' ./integrate-repo/rule.txt | tr '\n' ' ')
+          ARGS=$(awk -v repo="$REPO_NAME" '$1 == repo { $1 = ""; print $0 }' ./integrate-repo/rule.txt | tr '\n' ' ')
           echo "args=${ARGS}" >> $GITHUB_ENV
 
       - name: Run Olympix Integrated Security

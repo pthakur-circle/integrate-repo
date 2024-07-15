@@ -1,1 +1,1 @@
-pthakur-circle/integrate-repo default-visibility
+pthakur-circle/integrate-repo --no-default-visibility
