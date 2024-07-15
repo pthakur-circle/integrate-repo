@@ -22,7 +22,7 @@ jobs:
       - name: Read arguments from file
         id: read_args
         run: |
-          args=$(awk '{print "--no-" $1}' ./integrate-repocustome_olympix_rule.txt | tr '\n' ' ')
+          args=$(awk '{print "--no-" $1}' ./integrate-repo/custome_olympix_rule.txt | tr '\n' ' ')
           echo "args=$args" >> $GITHUB_ENV
 
       - name: Run Olympix Integrated Security
