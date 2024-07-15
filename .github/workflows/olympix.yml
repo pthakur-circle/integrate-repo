@@ -35,7 +35,7 @@ jobs:
           required: true
         with: 
           args: -f sarif ${{ env.args }}
-        # run: echo "sarif_file = ./olympix.sarif" >> $GITHUB_ENV
+        run: echo "sarif_file = ./olympix.sarif" >> $GITHUB_ENV
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
