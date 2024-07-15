@@ -19,14 +19,15 @@ jobs:
           repository: pthakur-circle/integrate-repo
           path: ./integrate-repo
       
-      - name: List
-        run: ls -al ./integrate-repo
+      - name: Repo name
+        run: github.repository
 
       - name: Read arguments from file
         id: read_args
         run: |
-          args=$(awk '{print "--no-" $1}' ./integrate-repo/rule.txt | tr '\n' ' ')
-          echo "args=$args" >> $GITHUB_ENV
+          REPO_NAME="${{ github.repository }}"
+          ARGS=$(awk -v repo="$REPO_NAME" '$1 == repo { $1 = ""; print "--no-" $0}' ./integrate-repo/rule.txt | tr '\n' ' ')
+          echo "args=${ARGS}" >> $GITHUB_ENV
 
       - name: Run Olympix Integrated Security
         id: run_olympix
