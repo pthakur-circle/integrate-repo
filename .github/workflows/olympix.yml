@@ -13,31 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Read arguments from file
+        id: read_args
+        run: |
+          args=$(awk '{print "--no-" $1}' ../custome_olympix_rule.txt | tr '\n' ' ')
+          echo "args=$args" >> $GITHUB_ENV
+
       - name: Run Olympix Integrated Security
         uses: olympix/integrated-security@main
         env:
           OLYMPIX_API_TOKEN: ${{ secrets.OLYMPIX_API_TOKEN }}
           required: true
+        with: ${{ env.args }}
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: olympix.sarif
-
-
-
-
-      # - name: Set up Circle runner
-      #   uses: circlefin/circle-runner-setup-action@v5.1.10
-      #   with: 
-      #     repository: ${{ github.repository }}
-      #     branch: ${{ github.ref }}
-      #     ecr_registries: ""
-      #     iam_role_arn: arn:aws:iam::171747205859:role/dev-olympix-ci
-
-      # - name: Read Github Action Secrets from AWS
-      #   uses: aws-actions/aws-secretsmanager-get-secrets@v2.0.5
-      #   with:
-      #     secret-ids: | 
-      #       API_TOKEN,dev/olympix/key
-      #     parse-json-secrets: true
