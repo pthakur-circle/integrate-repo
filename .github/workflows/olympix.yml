@@ -7,7 +7,7 @@ on:
         required: true
 
 jobs:
-  security:
+  read:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,18 +16,28 @@ jobs:
       - name: List directory (Reusable)
         run: ls -alh
 
-      - name: Read arguments from file
-        id: read_args
-        run: |
-          args=$(awk '{print "--no-" $1}' custome_olympix_rule.txt | tr '\n' ' ')
-          echo "args=$args" >> $GITHUB_ENV
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # - name: List directory (Reusable)
+      #   run: ls -alh
+
+      # - name: Read arguments from file
+      #   id: read_args
+      #   run: |
+      #     args=$(awk '{print "--no-" $1}' custome_olympix_rule.txt | tr '\n' ' ')
+      #     echo "args=$args" >> $GITHUB_ENV
 
       - name: Run Olympix Integrated Security
         uses: olympix/integrated-security@main
         env:
           OLYMPIX_API_TOKEN: ${{ secrets.OLYMPIX_API_TOKEN }}
           required: true
-        with: ${{ env.args }}
+        with: 
+          args: ${{ env.args }}
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
