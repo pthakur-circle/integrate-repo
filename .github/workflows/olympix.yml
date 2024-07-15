@@ -27,7 +27,16 @@ jobs:
         run: |
           REPO_NAME="${{ github.repository }}"
           ARGS=$(awk -v repo="$REPO_NAME" '$1 == repo { $1 = ""; print $0 }' ./integrate-repo/rule.txt | tr '\n' ' ')
+          if [ -z "$ARGS" ]; then
+            echo "No arg found for $REPO_NAME"
+            ARGS=""
+          else
+            echo "Args found for $REPO_NAME: $ARGS"
+          fi
           echo "args=${ARGS}" >> $GITHUB_ENV
+
+      - name: Debug-Print args
+        run: echo "Args = ${{ env.args }}"
 
       - name: Run Olympix Integrated Security
         id: run_olympix
