@@ -7,23 +7,20 @@ on:
         required: true
 
 jobs:
-  read:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: List directory (Reusable)
-        run: ls -alh
-
   security:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      # - name: List directory (Reusable)
-      #   run: ls -alh
+      - name: Checkout (Reusable)
+        uses: actions/checkout@v3
+        with: 
+          repository: pthakur-circle/integrate-repo
+          path: ./integrate-repo
+
+      - name: List
+        run: ls -alh
 
       # - name: Read arguments from file
       #   id: read_args
