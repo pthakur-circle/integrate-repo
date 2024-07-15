@@ -20,7 +20,7 @@ jobs:
           path: ./integrate-repo
       
       - name: Repo name
-        run: github.repository
+        run: echo "Repo =  ${{ github.repository }}"
 
       - name: Read arguments from file
         id: read_args
