@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: List directory
+      - name: List directory (Reusable)
         run: ls -alh
 
       - name: Read arguments from file
