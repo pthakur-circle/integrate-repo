@@ -22,18 +22,30 @@ jobs:
       - name: Repo name
         run: echo "Repo =  ${{ github.repository }}"
 
+      # - name: Read arguments from file
+      #   id: read_args
+      #   run: |
+      #     REPO_NAME="${{ github.repository }}"
+      #     ARGS=$(awk -v repo="$REPO_NAME" '$1 == repo { $1 = ""; print $0 }' ./integrate-repo/rule.txt | tr '\n' ' ')
+      #     if [ -z "$ARGS" ]; then
+      #       echo "No arg found for $REPO_NAME"
+      #       ARGS=""
+      #     else
+      #       echo "Args found for $REPO_NAME: $ARGS"
+      #     fi
+      #     echo "args=${ARGS}" >> $GITHUB_ENV
+
       - name: Read arguments from file
         id: read_args
         run: |
           REPO_NAME="${{ github.repository }}"
-          ARGS=$(awk -v repo="$REPO_NAME" '$1 == repo { $1 = ""; print $0 }' ./integrate-repo/rule.txt | tr '\n' ' ')
-          if [ -z "$ARGS" ]; then
-            echo "No arg found for $REPO_NAME"
-            ARGS=""
+          ARGS=$(jq -r --args repo "$REPO_NAME" '.[$repo] | join(" ")' ./integrate-repo/rule.json)
+          if [ "$ARGS" = "null" ]; then
+            echo "No args"
           else
-            echo "Args found for $REPO_NAME: $ARGS"
+            echo "Args for $REPO_NAME: $ARGS"
           fi
-          echo "args=${ARGS}" >> $GITHUB_ENV
+          echo "args=$ARGS" >> $GITHUB_ENV
 
       - name: Debug-Print args
         run: echo "Args = ${{ env.args }}"
