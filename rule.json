@@ -1,0 +1,3 @@
+{
+    "pthakur-circle/solidity-repo": ["--no-default-visibility", "--no-uninitialized-state-variable"]
+}
