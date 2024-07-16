@@ -37,10 +37,11 @@ jobs:
         id: read_args
         run: |
           REPO_NAME="${{ github.repository }}"
-          ARGS=$(jq -r --arg repo "$REPO_NAME" 'if has($repo) then .[$repo] | join(" ") else "" end' ./integrate-repo/rule.json)
+          VUL_IDS=$(jq -r --arg repo "$REPO_NAME" 'if has($repo) then .[$repo] | join(" ") else "" end' ./integrate-repo/rule.json)
           if [ "$ARGS" = "null" ]; then
             echo "No args"
           else
+            ARGS=$(echo $VUL_IDS | awk '{for(i=1;i<=NF;i++) $i="--no-"$i}1')
             echo "Args for $REPO_NAME: $ARGS"
           fi
           echo "args=$ARGS" >> $GITHUB_ENV
