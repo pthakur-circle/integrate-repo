@@ -1,4 +1,4 @@
 {
     "_instructions": "Each entry should map a repository name and an array of vulnerbility ids, that can be obtained from the secuirty alerts in Github. Example: 'org_name/repo_name': ['--no-<vulnerbility_id>', '--no-<vulnerbility_id>']",
-    "pthakur-circle/solidity-repo": ["--no-default-visibility", "--no-uninitialized-state-variable"]
+    "pthakur-circle/solidity-repo": ["default-visibility", "no-uninitialized-state-variable"]
 }
