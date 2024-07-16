@@ -42,6 +42,7 @@ jobs:
             echo "No args"
           else
             ARGS=$(echo $VUL_IDS | awk '{for(i=1;i<=NF;i++) $i="--no-"$i}1')
+            echo "Vul: $VUL_IDS"
             echo "Args for $REPO_NAME: $ARGS"
           fi
           echo "args=$ARGS" >> $GITHUB_ENV
