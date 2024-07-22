@@ -64,7 +64,7 @@ jobs:
       - name: Check for SARIF file
         id: check_sarif
         run: |
-          [ -f ./integrate-repo/olympix.sarif ]; then
+          if [ -f ./integrate-repo/olympix.sarif ]; then
             echo "SARIF file found"
             echo "sarif_file_exists = true" >> GITHUB_ENV
           else
