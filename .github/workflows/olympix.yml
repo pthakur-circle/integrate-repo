@@ -71,9 +71,9 @@ jobs:
       #       echo "SARIF file not found"
       #       echo "sarif_file_exists = false" >> GITHUB_ENV
 
-      - name: Filter out test files
-        run: | 
-          jq 'del(.runs[].results[] | select(.locations[].physicalLocation.artifactLocation.uri | endswith(".t.sol")))' ./integrate-repo/olympix.sarif > ./integrate-repo/filtered_olympix.sarif
+      # - name: Filter out test files
+      #   run: | 
+      #     jq 'del(.runs[].results[] | select(.locations[].physicalLocation.artifactLocation.uri | endswith(".t.sol")))' ./integrate-repo/olympix.sarif > ./integrate-repo/filtered_olympix.sarif
 
       - name: Upload result to GitHub Code Scanning
         # if: steps.check_sarif.outputs.sarif_file_exists == 'true'
