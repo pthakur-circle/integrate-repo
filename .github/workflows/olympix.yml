@@ -14,6 +14,11 @@ jobs:
         with:
           submodules: true
 
+      - name: List files in caller repo
+        run: |
+          echo "Files in the repo:"
+          find . -type f
+
       - name: Checkout (Reusable)
         uses: actions/checkout@v3
         with: 
