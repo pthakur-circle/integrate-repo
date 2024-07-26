@@ -19,15 +19,19 @@ jobs:
           echo "Files in the repo before:"
           find . -type f
       
-      # - name: Remove submodules from caller
-      #   run: | 
-      #     git submodule deinit -f --all
-      #     rm -rf .git/modules/*
+      - name: Remove submodules from caller
+        run: | 
+          if git config --file .gitmodules --name-only --get-regexp path; then
+            git submodule deinit -f --all
+            rm -rf .git/modules/*
+          else
+            echo "No submodules found!"
+          fi
       
-      # - name: List files in caller repo After
-      #   run: |
-      #     echo "Files in the repo after:"
-      #     find . -type f
+      - name: List files in caller repo After
+        run: |
+          echo "Files in the repo after:"
+          find . -type f
 
       - name: Checkout (Reusable)
         uses: actions/checkout@v3
